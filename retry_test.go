@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func TestRetry(t *testing.T) {
+func TestDo(t *testing.T) {
 	// normal condition
 	var changed bool
 	fn := func() error {
@@ -16,7 +16,7 @@ func TestRetry(t *testing.T) {
 		return nil
 	}
 
-	err := Retry(context.TODO(), fn, 1)
+	err := Do(context.TODO(), fn, 1)
 	if err != nil {
 		t.Fatalf("err: %v", err)
 	}
@@ -33,7 +33,7 @@ func TestRetry(t *testing.T) {
 		}
 		return nil
 	}
-	err = Retry(context.TODO(), fn, 2)
+	err = Do(context.TODO(), fn, 2)
 	if err != nil {
 		t.Logf("%v", err)
 	} else {
@@ -41,7 +41,7 @@ func TestRetry(t *testing.T) {
 	}
 
 	n = 0
-	err = Retry(context.TODO(), fn, 3)
+	err = Do(context.TODO(), fn, 3)
 	if err != nil {
 		t.Fatalf("err: %v", err)
 	}
@@ -56,7 +56,7 @@ func TestRetry(t *testing.T) {
 		time.Sleep(1 * time.Second)
 		cancel()
 	}()
-	err = Retry(ctx, fn, 10)
+	err = Do(ctx, fn, 10)
 	if err != nil {
 		t.Logf("%v", err)
 	} else {

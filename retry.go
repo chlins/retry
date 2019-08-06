@@ -8,10 +8,10 @@ import (
 
 type task func() error
 
-// Retry defines a task and retry count
+// Do defines a task and retry count
 // return nil when first run sucessfully
 // otherwise, repeat it
-func Retry(ctx context.Context, fn task, count int) error {
+func Do(ctx context.Context, fn task, count int) error {
 	if count < 1 {
 		return errors.New("retry count must greater than zero")
 	}
